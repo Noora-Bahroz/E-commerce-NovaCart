@@ -1,23 +1,35 @@
 import { memo } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useCart } from '../../context/CartContext'
+import ProfileMenu from '../Dashboard/ProfileMenu'
 
 const Header = memo(function Header() {
-  const { user, logout } = useAuth()
+  const { isAuthenticated } = useAuth()
+  const { totalItems } = useCart()
 
   return (
     <header className="app-header">
       <div className="header-content">
-        <h1 className="logo">Nova Cart</h1>
-        <nav className="header-nav">
-          {user && (
-            <>
-              <span className="user-greeting">Hi, {user.name}</span>
-              <button onClick={logout} className="btn-logout">
-                Sign Out
-              </button>
-            </>
-          )}
-        </nav>
+        <Link to="/" className="logo">
+          Nova Cart
+        </Link>
+
+        {isAuthenticated && (
+          <>
+            <nav className="header-nav">
+              <NavLink to="/" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} end>
+                Home
+              </NavLink>
+              <NavLink to="/cart" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                Cart
+                {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+              </NavLink>
+            </nav>
+
+            <ProfileMenu />
+          </>
+        )}
       </div>
     </header>
   )

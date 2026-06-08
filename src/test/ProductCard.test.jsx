@@ -1,6 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { AuthProvider } from '../context/AuthContext'
+import { CartProvider } from '../context/CartContext'
 import ProductCard from '../components/Products/ProductCard'
+
+function TestWrapper({ children }) {
+  return (
+    <AuthProvider>
+      <CartProvider>{children}</CartProvider>
+    </AuthProvider>
+  )
+}
 
 const mockProduct = {
   id: 1,
@@ -14,7 +24,7 @@ const mockProduct = {
 
 describe('ProductCard', () => {
   it('renders product details', () => {
-    render(<ProductCard product={mockProduct} />)
+    render(<ProductCard product={mockProduct} />, { wrapper: TestWrapper })
 
     expect(screen.getByText('Test Product')).toBeInTheDocument()
     expect(screen.getByText('electronics')).toBeInTheDocument()
@@ -23,7 +33,7 @@ describe('ProductCard', () => {
   })
 
   it('renders image with correct alt text', () => {
-    render(<ProductCard product={mockProduct} />)
+    render(<ProductCard product={mockProduct} />, { wrapper: TestWrapper })
 
     const img = screen.getByAltText('Test Product')
     expect(img).toBeInTheDocument()
@@ -32,13 +42,13 @@ describe('ProductCard', () => {
 
   it('handles product with no rating gracefully', () => {
     const noRating = { ...mockProduct, rating: undefined }
-    render(<ProductCard product={noRating} />)
+    render(<ProductCard product={noRating} />, { wrapper: TestWrapper })
 
     expect(screen.getByText('Test Product')).toBeInTheDocument()
   })
 
   it('renders rating stars', () => {
-    render(<ProductCard product={mockProduct} />)
+    render(<ProductCard product={mockProduct} />, { wrapper: TestWrapper })
 
     const ratingEl = screen.getByText(/★/i)
     expect(ratingEl).toBeInTheDocument()

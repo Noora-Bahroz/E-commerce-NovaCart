@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 export default function LoginPage() {
   const { isAuthenticated } = useAuth()
 
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />
+  if (isAuthenticated) return <Navigate to="/" replace />
 
   return (
     <div className="login-page">
