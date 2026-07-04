@@ -2,8 +2,8 @@
 
 A production-quality e-commerce dashboard built with **React 19**, **Vite**, and **Context API** demonstrating modern front-end architecture, performance optimization, and responsive design.
 
-**Live Demo:** [https://ecommerce-dashboard-nu-sandy.vercel.app](https://ecommerce-dashboard-nu-sandy.vercel.app)  
-**Repository:** [https://github.com/your-username/ecommerce-dashboard](https://github.com/your-username/ecommerce-dashboard)
+**Live Demo:** e-commerce-novacart-zeta.vercel.app 
+**Repository:** https://github.com/Noora-Bahroz/E-commerce-NovaCart
 
 ---
 
